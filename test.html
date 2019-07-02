@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="apngbuilder.js"></script>
+<script>
+/******************** test ***********************/
+async function main() {
+  /* Create APNGBuilder instance */
+  const apb = new APNGBuilder();
+  /* Add each frames */
+  await apb.addFrame("images/1.png");
+  await apb.addFrame("images/2.png");
+  await apb.addFrame("images/3.png");
+  /* Setup frame delay-time */
+  apb.setDelay(0.5);
+  /* Setup number of loops. infinite if 0 */
+  apb.setNumPlays(0);
+
+  /* Get the APNG blob */
+  const blob = apb.getAPng();
+  document.getElementById("result").src = URL.createObjectURL(blob);
+}
+
+function download(){
+  let a = document.createElement("a");
+  a.download = "test.png";
+  a.href = document.getElementById("result").src;
+  a.click();
+}
+
+onload=main;
+</script>
+</head>
+<body>
+<h1>APNGBuilder Test</h1>
+<div id="base">
+  <img class="frame" id="frame0" src="images/1.png" width="128"/>
+  <img class="frame" id="frame1" src="images/2.png" width="128"/>
+  <img class="frame" id="frame2" src="images/3.png" width="128"/>
+</div>
+<hr/>
+<img id="result"/>
+<hr/>
+<button onclick="download()">Download</button>
+</body>
+</html>

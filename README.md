@@ -33,7 +33,8 @@ APNGBuilder consists of one class, APNGBuilder.
 
 ## Sample Code  
 
-* LiveDemo *
+### [LiveDemo](https://g200kg.github.io/apngbuilder/test.html)  
+
 
 
 ```

@@ -1,6 +1,8 @@
 APNGBuilder
 ===========
 
+<img src="images/test.png" width="200"/>
+
 APNGBuilder is a JS library for build APNG (Animation PNG) image from PNG files.
 
 ## Files

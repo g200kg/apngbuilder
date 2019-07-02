@@ -210,6 +210,7 @@ class APNGBuilder {
         }
       }
     }
+    this.crcCalc(this.iend, this.iend.length);
     ar.set(this.iend, offset);
     return new Blob([ar]);
   }

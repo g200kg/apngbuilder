@@ -23,10 +23,13 @@ async function main() {
 }
 
 function download(){
+  console.log("download")
   let a = document.createElement("a");
   a.download = "test.png";
   a.href = document.getElementById("result").src;
+  document.getElementById("download").appendChild(a);
   a.click();
+  document.getElementById("download").removeChild(a);
 }
 
 onload=main;
@@ -43,5 +46,6 @@ onload=main;
 <img id="result"/>
 <hr/>
 <button onclick="download()">Download</button>
+<div id="download"></div>
 </body>
 </html>

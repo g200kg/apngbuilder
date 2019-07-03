@@ -27,9 +27,9 @@ function download(){
   let a = document.createElement("a");
   a.download = "test.png";
   a.href = document.getElementById("result").src;
-  document.getElementById("download").appendChild(a);
+  document.body.appendChild(a);
   a.click();
-  document.getElementById("download").removeChild(a);
+  document.body.removeChild(a);
 }
 
 onload=main;
@@ -46,6 +46,5 @@ onload=main;
 <img id="result"/>
 <hr/>
 <button onclick="download()">Download</button>
-<div id="download"></div>
 </body>
 </html>

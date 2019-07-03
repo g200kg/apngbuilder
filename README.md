@@ -61,7 +61,9 @@ function download(){
   let a = document.createElement("a");
   a.download = "test.png";
   a.href = document.getElementById("result").src;
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
 }
 
 onload=main;

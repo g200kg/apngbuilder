@@ -7,9 +7,9 @@ APNGBuilder is a JS library for build APNG (Animation PNG) image from PNG-image 
 
 ## Files
  apngbuilder.js --- JS library  
- testimg.html --- sample file (build from PNG image URL)
- testblob.html --- sample file (build from PNG blob)
- testcanvas.html --- sample file (build from Canvas)
+ testimg.html --- sample file (build from PNG image URL)  
+ testblob.html --- sample file (build from PNG blob)  
+ testcanvas.html --- sample file (build from Canvas)  
 
 ## How to Use
 

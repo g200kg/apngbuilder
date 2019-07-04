@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="apngbuilder.js"></script>
+<script>
+/******************** test From Blob ***********************/
+
+function getCanvasBlob(canvas) {
+  return new Promise(function(resolve, reject) {
+    canvas.toBlob(function(blob) {
+      resolve(blob)
+    })
+  })
+}
+
+
+async function main() {
+  /* Create APNGBuilder instance */
+  const apb = new APNGBuilder();
+
+  /* Make canvas */
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("width", "256");
+  canvas.setAttribute("height", "256");
+  const ctx = canvas.getContext("2d");
+
+  /* Draw to canvas and add frames */
+  for(let i = 0, y = 200, v = 0; i < 50; ++i){
+    ctx.clearRect(0,0,256,256);
+    ctx.beginPath();
+    ctx.arc(i * 6, 256 - y, 20, 0, Math.PI * 2, false);
+    ctx.fillStyle="#ff0000";
+    ctx.fill();
+    await apb.addFrame(await getCanvasBlob(canvas));
+    y = y - v;
+    v = v + 2;
+    if(y < 0){
+      y = -y;
+      v = -v * 0.7;
+    }
+  }
+
+  /* Setup frame delay-time */
+  apb.setDelay(0.1);
+  /* Setup number of loops. infinite if 0 */
+  apb.setNumPlays(0);
+
+  /* Get the APNG blob */
+  const blob = apb.getAPng();
+  document.getElementById("result").src = URL.createObjectURL(blob);
+}
+
+function download(){
+  console.log("download")
+  let a = document.createElement("a");
+  a.download = "test.png";
+  a.href = document.getElementById("result").src;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+onload=main;
+</script>
+</head>
+<body>
+<h1>APNGBuilder Test [Blob]</h1>
+<hr/>
+<img id="result" style="border: 1px solid #000000"/>
+<hr/>
+<button onclick="download()">Download</button>
+</body>
+</html>

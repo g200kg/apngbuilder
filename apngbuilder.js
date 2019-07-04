@@ -118,6 +118,22 @@ class APNGBuilder {
     ar[offset + 2] = str.charCodeAt(2);
     ar[offset + 3] = str.charCodeAt(3);
   }
+  readArrayBuffer(file) {
+    return new Promise((resolve)=>{
+      let reader = new FileReader();
+      reader.onload = ()=>{
+        resolve(reader.result);
+      };
+      reader.readAsArrayBuffer(file);
+    })
+  }
+  getBlobFromCanvas(canvas) {
+    return new Promise((resolve)=>{
+      canvas.toBlob((blob)=>{
+        resolve(blob);
+      })
+    })
+  }
   extractDataChunk(ar){
     const dat = new Uint8Array(ar);
     if(dat[0]!=0x89 || dat[1]!=0x50)
@@ -153,9 +169,20 @@ class APNGBuilder {
   setDelay(t){
     this.delay = t;
   }
-  async addFrame(url){
-    const res = await fetch(url);
-    const ar = await res.arrayBuffer();
+  async addFrame(src){
+    let ar;
+    console.log(toString.call(src));
+    switch(toString.call(src)){
+    case "[object Blob]":
+      ar = await this.readArrayBuffer(src);
+      break;
+    case "[object HTMLCanvasElement]":
+      ar = await this.readArrayBuffer(await this.getBlobFromCanvas(src));
+      break;
+    default:
+      const res = await fetch(src);
+      ar = await res.arrayBuffer();
+    }
     this.frames.push(this.extractDataChunk(ar));
     ++this.numframe;
     this.setDwordValue(this.actl, 8, this.numframe);

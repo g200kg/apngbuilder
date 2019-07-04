@@ -3,11 +3,13 @@ APNGBuilder
 
 <img src="images/test.png" width="200"/>
 
-APNGBuilder is a JS library for build APNG (Animation PNG) image from PNG files.
+APNGBuilder is a JS library for build APNG (Animation PNG) image from PNG-image / Canvas.
 
 ## Files
  apngbuilder.js --- JS library  
- test.html --- sample file
+ testimg.html --- sample file (build from PNG image URL)
+ testblob.html --- sample file (build from PNG blob)
+ testcanvas.html --- sample file (build from Canvas)
 
 ## How to Use
 
@@ -22,7 +24,7 @@ APNGBuilder consists of one class, APNGBuilder.
 |method           |  description                                                               |
 |-----------------|----------------------------------------------------------------------------|
 |new APNGBuilder()| Construct new APNGBuilder instance                                         |
-|addFrame(url)    | Add a frame image. This url should represents a PNG image for one frame. This method return Promise, then recommend to use async/await to call.  |
+|addFrame(src)    | Add a frame image. The `src` can be one of the following : <ul><li>a URL that represents a PNG image</li><li>Blob object of PNG image</li><li>Canvas object</li></ul> This method return Promise, then recommend to use async/await to call.  |
 |setDelay(t)      | Set frame delay in sec. The default value is 0.1 (sec).                    |
 |setNumPlays(n)   | Set max loop count of the animation. If this value is 0 (default), it loops infinitely.| 
 |getAPng()        | Get the blob of APNG image data. The blob can be displayed via &lt; img &gt; tag and URL.createObjectURL(), or downloaded as local files via &lt; a &gt; tag.|
@@ -35,11 +37,12 @@ APNGBuilder consists of one class, APNGBuilder.
 
 ## Sample Code  
 
-### [LiveDemo](https://g200kg.github.io/apngbuilder/test.html)  
+#### [LiveDemo (from image)](https://g200kg.github.io/apngbuilder/testimg.html)  
+#### [LiveDemo (from blob)](https://g200kg.github.io/apngbuilder/testblob.html)
+#### [LiveDemo (from canvas)](https://g200kg.github.io/apngbuilder/testcanvas.html)
 
 
-
-```
+```html
 <html>
 <head>
 <script src="apngbuilder.js"></script>
